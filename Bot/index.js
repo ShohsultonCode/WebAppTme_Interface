@@ -4,16 +4,14 @@ const bot = new Telegraf(TOKEN);
 
 const web_link = "https://web-app-tme-interface.vercel.app/";
 
-bot.start((ctx) =>{
+bot.start((ctx) => {
   const userId = ctx.from.id;
-  console.log(userId);
+  const webAppUrl = `${web_link}?user_id=${userId}`;
   ctx.reply("Welcome :)))))", {
-    
     reply_markup: {
-      keyboard: [[{ text: "web app", web_app: { url: web_link } }]],
+      keyboard: [[{ text: "web app", web_app: { url: webAppUrl } }]],
     },
-  })
-}
-);
+  });
+});
 
 bot.launch();

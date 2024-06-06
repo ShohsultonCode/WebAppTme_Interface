@@ -2,8 +2,16 @@ import React, { useState, useEffect } from 'react';
 
 const Index = () => {
     const [products, setProducts] = useState([]);
-
+    const [userId, setUserId] = useState(null);
+    console.log(userId);
     useEffect(() => {
+        // Extract user ID from URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const userId = urlParams.get('user_id');
+        if (userId) {
+            setUserId(userId);
+        }
+
         const fetchProducts = async () => {
             try {
                 const response = await fetch('https://shohsulton.uz/webappbot/api/products');
@@ -17,10 +25,10 @@ const Index = () => {
         fetchProducts();
     }, []);
 
-    //ss
     return (
         <div className="container mt-5">
             <h1 className="mb-4">Products:</h1>
+            {userId && <p>User ID: {userId}</p>}
             <div className="row">
                 {products.map((product, index) => (
                     <div className="col-md-4 mb-4" key={index}>
