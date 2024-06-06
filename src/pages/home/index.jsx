@@ -3,8 +3,8 @@ import React, { useState, useEffect } from 'react';
 const Index = () => {
     const [products, setProducts] = useState([]);
     const [userId, setUserId] = useState(null);
+
     useEffect(() => {
-        // Extract user ID from URL
         const urlParams = new URLSearchParams(window.location.search);
         const userId = urlParams.get('user_id');
         if (userId) {
@@ -26,11 +26,11 @@ const Index = () => {
 
     return (
         <div className="container mt-5">
-            <h1 className="mb-4">Product:</h1>
+            <h1 className="mb-4">Products:</h1>
             {userId && <p>User ID: {userId}</p>}
             <div className="row">
                 {products.map((product, index) => (
-                    <div className="col-md-4 mb-4" key={index}>
+                    <div className="col-md-6 mb-4" key={index}> {/* Change col-md-4 to col-md-6 */}
                         <div className="card h-100">
                             {product.product_image && (
                                 <img src={`https://shohsulton.uz/webappbot/api/images/${product.product_image}`} className="card-img-top img-fluid" alt={product.product_name} />

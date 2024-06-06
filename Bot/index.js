@@ -7,7 +7,7 @@ const web_link = "https://web-app-tme-interface.vercel.app/";
 bot.start((ctx) => {
   const userId = ctx.from.id;
   const webAppUrl = `${web_link}?user_id=${userId}`;
-  ctx.reply("Welcome :)))))", {
+  ctx.reply("Welcome our fucking bot", {
     reply_markup: {
       keyboard: [[{ text: "web app", web_app: { url: webAppUrl } }]],
     },
@@ -15,3 +15,4 @@ bot.start((ctx) => {
 });
 
 bot.launch();
+  
