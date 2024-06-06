@@ -6,7 +6,7 @@ const Index = () => {
     useEffect(() => {
         const fetchProducts = async () => {
             try {
-                const response = await fetch('https://shohsulton.uz/webappbot/api/products');
+                const response = await fetch('https:localhost/api/products');
                 const data = await response.json();
                 setProducts(data.data);
             } catch (error) {
@@ -25,7 +25,7 @@ const Index = () => {
                     <div className="col-md-4 mb-4" key={index}>
                         <div className="card h-100">
                             {product.product_image && (
-                                <img src={`https://shohsulton.uz/webappbot/api/images/${product.product_image}`} className="card-img-top img-fluid" alt={product.product_name} />
+                                <img src={`https:localhost/api/images/${product.product_image}`} className="card-img-top img-fluid" alt={product.product_name} />
                             )}
                             <div className="card-body">
                                 <h5 className="card-title">{product.product_name}</h5>
