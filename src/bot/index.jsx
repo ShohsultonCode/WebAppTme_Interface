@@ -2,7 +2,7 @@ const { Telegraf } = require("telegraf");
 const TOKEN = "6782375542:AAEsF4BDqc3tBkv4NMryssT4-VpUd8GvzpI";
 const bot = new Telegraf(TOKEN);
 
-const web_link = "http://http://localhost:5173";
+const web_link = "https://web-app-tme-interface.vercel.app/";
 
 bot.start((ctx) =>
   ctx.reply("Welcome :)))))", {
