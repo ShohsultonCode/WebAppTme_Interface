@@ -30,7 +30,7 @@ const Index = () => {
             {userId && <p>User ID: {userId}</p>}
             <div className="row row-cols-2"> {/* Use row-cols-2 to display 2 columns */}
                 {products.map((product, index) => (
-                    <div className="col-6 mb-4" key={index}>
+                    <div className="col-6 mb-4 rounded" key={index}>
                         <div className="card h-100">
                             {product.product_image && (
                                 <img src={`https://shohsulton.uz/webappbot/api/images/${product.product_image}`} className="card-img-top img-fluid" alt={product.product_name} />
@@ -39,7 +39,7 @@ const Index = () => {
                                 <h5 className="card-title">{product.product_name}</h5>
                                 <h6 className="card-subtitle mb-2 text-muted">Type: {product.product_category.category_name}</h6>
                                 <p className="card-text">Price: ${product.product_price.toFixed(2)}</p>
-                                    <button className="btn btn-primary">Order</button>
+                                    <button className="btn btn-primary buttoncha">Order</button>
                             </div>
                         </div>
                     </div>
