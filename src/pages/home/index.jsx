@@ -6,7 +6,7 @@ const Index = () => {
     useEffect(() => {
         const fetchProducts = async () => {
             try {
-                const response = await fetch('http://127.0.0.1:8080/api/products');
+                const response = await fetch('http://209.38.34.241:8090/api/products');
                 const data = await response.json();
                 setProducts(data.data);
             } catch (error) {
