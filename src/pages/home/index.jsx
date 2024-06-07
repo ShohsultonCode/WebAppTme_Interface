@@ -34,9 +34,6 @@ const Index = () => {
         <div className="container mt-5">
             <div className="d-flex justify-content-between align-items-center mb-4">
                 <h1 className="titlecha">Products:</h1>
-                    <button className="btn btn-success" onClick={() => navigate('/add/product')}>
-                        Add Product
-                    </button>
             </div>
             {userId && <p>User ID: {userId}</p>}
             {loading ? (
