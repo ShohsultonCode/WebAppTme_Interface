@@ -45,7 +45,6 @@ const Index = () => {
             fetchOrders();
         } else {
             setLoading(false);
-            toast.error('User ID is missing');
         }
     }, [userId]);
 
