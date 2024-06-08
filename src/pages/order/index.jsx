@@ -54,8 +54,8 @@ const Index = () => {
                 <Loader />
             ) : (
                 <div>
-                    <div className="d-flex justify-content-between align-items-center mb-4 backbutton">
-                        <h1 className="titlecha">Orders:</h1>
+                    <div className="d-flex justify-content-between">
+                        <h3 className="titlecha">Orders:</h3>
                         <button type="button" className="btn btn-secondary" onClick={() => navigate('/')}>Back</button>
                     </div>
 
@@ -65,7 +65,6 @@ const Index = () => {
                                 <th>User Telegram ID</th>
                                 <th>Product Name</th>
                                 <th>Product Image</th>
-                                <th>Time</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -81,7 +80,6 @@ const Index = () => {
                                             style={{ maxWidth: '100px' }}
                                         />
                                     </td>
-                                    <td>{new Date(order.createdAt).toLocaleString()}</td>
                                 </tr>
                             ))}
                         </tbody>
