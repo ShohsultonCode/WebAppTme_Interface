@@ -8,11 +8,29 @@ const Index = () => {
     const [orders, setOrders] = useState([]);
     const [loading, setLoading] = useState(true);
     const navigate = useNavigate();
+    const [userId, setUserId] = useState(null);
 
     useEffect(() => {
+        const urlParams = new URLSearchParams(window.location.search);
+        const userId = urlParams.get('user_id');
+        if (userId) {
+            setUserId(userId);
+        }
+
         const fetchOrders = async () => {
             try {
-                const response = await fetch('https://shohsulton.uz/webappbot/api/orders');
+                const response = await fetch('https://shohsulton.uz/webappbot/api/orders/my', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ order_telegram_id: userId })
+                });
+
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+
                 const data = await response.json();
                 setOrders(data);
                 setLoading(false);
@@ -23,8 +41,13 @@ const Index = () => {
             }
         };
 
-        fetchOrders();
-    }, []);
+        if (userId) {
+            fetchOrders();
+        } else {
+            setLoading(false);
+            toast.error('User ID is missing');
+        }
+    }, [userId]);
 
     return (
         <div className="container mt-5">
