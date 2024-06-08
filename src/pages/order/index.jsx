@@ -54,9 +54,9 @@ const Index = () => {
                 <Loader />
             ) : (
                 <div>
-                    <div className="d-flex justify-content-between"> 
+                    <div className="d-flex justify-content-between">
                         <h3 className="titlecha">Orders:</h3>
-                        <button type="button" className="btn btn-black/" onClick={() => navigate('/')}>Back</button>
+                        <button type="button" className="btn btn-secondary" onClick={() => navigate('/')}>Back</button>
                     </div>
 
                     <table className="table table-bordered">
