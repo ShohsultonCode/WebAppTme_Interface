@@ -8,14 +8,16 @@ const Index = () => {
     const [products, setProducts] = useState([]);
     const [userId, setUserId] = useState(null);
     const [loading, setLoading] = useState(true);
+    const [quantities, setQuantities] = useState({});
     const navigate = useNavigate();
 
     useEffect(() => {
-        const urlParams = new URLSearchParams(window.location.search);
-        const userId = urlParams.get('user_id');
+        // Initialize the Telegram Web Apps SDK
+        const tg = window.Telegram.WebApp;
 
-        if (userId) {
-            setUserId(userId);
+        // Set the user ID from Telegram Web Apps initialization data
+        if (tg.initDataUnsafe && tg.initDataUnsafe.user) {
+            setUserId(tg.initDataUnsafe.user.id);
         }
 
         const fetchProducts = async () => {
@@ -33,10 +35,8 @@ const Index = () => {
         fetchProducts();
     }, []);
 
-
-
-
     const handleOrder = async (productId) => {
+        const quantity = quantities[productId] || 1;
         try {
             const response = await fetch('https://shohsulton.uz/webappbot/api/orders/create', {
                 method: 'POST',
@@ -45,12 +45,16 @@ const Index = () => {
                 },
                 body: JSON.stringify({
                     order_telegram_id: userId,
-                    order_product_id: productId
+                    order_product_id: productId,
+                    order_quantity: quantity
                 })
             });
             const data = await response.json();
             if (response.ok) {
                 toast.success('Order placed successfully!');
+                // Optionally, send data back to Telegram
+                const tg = window.Telegram.WebApp;
+                tg.sendData('Order placed successfully!');
             } else {
                 toast.error(data.message || 'Failed to place order');
             }
@@ -59,6 +63,21 @@ const Index = () => {
             toast.error('Failed to place order');
         }
     };
+
+    const incrementQuantity = (productId) => {
+        setQuantities((prevQuantities) => ({
+            ...prevQuantities,
+            [productId]: (prevQuantities[productId] || 1) + 1
+        }));
+    };
+
+    const decrementQuantity = (productId) => {
+        setQuantities((prevQuantities) => ({
+            ...prevQuantities,
+            [productId]: Math.max((prevQuantities[productId] || 1) - 1, 1)
+        }));
+    };
+
 
     return (
         <div className="container mt-5">
@@ -81,7 +100,12 @@ const Index = () => {
                                     <h5 className="card-title">{product.product_name}</h5>
                                     <h6 className="card-subtitle mb-2 text-muted">Type: {product.product_category.category_name}</h6>
                                     <p className="card-text">Price: ${product.product_price.toFixed(2)}</p>
-                                    <button className="btn btn-primary buttoncha" onClick={() => handleOrder(product._id)}>Order</button>
+                                    <div className="d-flex align-items-center">
+                                        <button className="btn btn-secondary me-2" onClick={() => decrementQuantity(product._id)}>-</button>
+                                        <span>{quantities[product._id] || 1}</span>
+                                        <button className="btn btn-secondary ms-2" onClick={() => incrementQuantity(product._id)}>+</button>
+                                    </div>
+                                    <button className="btn btn-primary buttoncha mt-3" onClick={() => handleOrder(product._id)}>Order</button>
                                 </div>
                             </div>
                         </div>

@@ -47,7 +47,7 @@ const Index = () => {
             setLoading(false);
         }
     }, [userId]);
-
+    console.log(orders);
     return (
         <div className="container mt-5">
             {loading ? (
