@@ -3,8 +3,7 @@ import './App.css'
 import { Route, Routes } from 'react-router-dom'
 import Error from './pages/error'
 import Home from './pages/home'
-
-import Orders from './pages/order'
+import Product from './pages/product'
 
 
 const App = () => {
@@ -12,7 +11,7 @@ const App = () => {
     <>
       <Routes>
         <Route path='/' element={<Home />}></Route>
-        <Route path='/orders' element={<Orders />}></Route>
+        <Route path='/products' element={<Product />}></Route>
         <Route path='*' element={<Error />}></Route>
       </Routes>
     </>
