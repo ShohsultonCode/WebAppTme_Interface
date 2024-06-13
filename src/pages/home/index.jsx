@@ -89,7 +89,11 @@ const Index = () => {
     showCheckoutButton ? tele.MainButton.show() : tele.MainButton.hide();
 
     return (
-        <div className="container mt-5">
+      <div className="container mt-5">
+            <div className="d-flex justify-content-between align-items-center mb-4">
+                <h3 className="titlecha">Products: </h3>
+                <button onClick={() => navigate("/add/product")} className='btn btn-outline-success'>Add Product</button>
+            </div>
             {userId && <p>User ID: {userId}</p>}
             {loading ? (
                 <Loader />
@@ -98,7 +102,7 @@ const Index = () => {
                     {products.map((product, index) => (
                         <div className="col-6 mb-4 rounded" key={index}>
                             <div className="card h-100 product-card">
-                            {product.product_image && (
+                                {product.product_image && (
                                     <img src={`https://shohsulton.uz/webappbot/api/images/${product.product_image}`} className="card-img-top img-fluid product-image" alt={product.product_name} />
                                 )}
                                 <div className="card-body">
@@ -112,7 +116,10 @@ const Index = () => {
                                             <button className="btn btn-success ms-2" onClick={() => handleIncrement(product._id)}>+</button>
                                         </div>
                                     ) : (
-                                        <button className="btn btn-primary buttoncha" onClick={() => handleOrder(product._id)}>Order</button>
+                                        <div className="d-flex justify-content-between">
+                                            <button className="btn btn-primary buttoncha" onClick={() => handleOrder(product._id)}>Order</button>
+                                            <button className="btn btn-warning buttoncha" onClick={() => navigate(`/products/${product._id}`)}>Edit</button>
+                                        </div>
                                     )}
                                 </div>
                             </div>
