@@ -11,8 +11,8 @@ const Index = () => {
   const [telegramUserId, setTelegramUserId] = useState(localStorage.getItem('telegramUserId'));
   const navigate = useNavigate();
 
+  const telegram = window.Telegram.WebApp;
   useEffect(() => {
-    const telegram = window.Telegram.WebApp;
 
     const fetchSelectedProducts = async () => {
       try {
@@ -93,8 +93,7 @@ const Index = () => {
             };
             return acc;
           }, { user_id: telegramUserId })
-        };
-
+        }
         const secondResponse = await fetch('https://vermino.uz/bots/orders/CatDeliver/index.php', {
           method: 'POST',
           headers: {
