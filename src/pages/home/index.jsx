@@ -9,6 +9,7 @@ const Index = () => {
     const [products, setProducts] = useState([]);
     const [userId, setUserId] = useState(localStorage.getItem('telegramUserId'));
     const [loading, setLoading] = useState(true);
+    const [totalPrice, setTotalPrice] = useState(0);
     const [productCounts, setProductCounts] = useState({});
     const [selectedProducts, setSelectedProducts] = useState([]);
     const navigate = useNavigate();
@@ -36,6 +37,18 @@ const Index = () => {
 
         fetchProducts();
     }, []);
+
+    useEffect(() => {
+        // Calculate total price whenever selected products change
+        let total = 0;
+        selectedProducts.forEach(item => {
+            const product = products.find(prod => prod._id === item.productId);
+            if (product) {
+                total += product.product_price * item.count;
+            }
+        });
+        setTotalPrice(total);
+    }, [selectedProducts, products]);
 
     const handleOrder = (productId) => {
         const updatedCounts = { ...productCounts, [productId]: 1 };
@@ -71,9 +84,14 @@ const Index = () => {
         }
     };
 
+    const handleFinalOrder = (productId, count) => {
+        const selectedProduct = { productId, count };
+        setSelectedProducts([...selectedProducts, selectedProduct]);
+    };
+
     const showCheckoutButton = selectedProducts.some(item => item.count > 0);
     tele.MainButton.show();
-    tele.MainButton.text = "Checkout";
+    tele.MainButton.text = `Buyurtmaga o'tish: ${totalPrice} so'm`;
 
     const handleCheckoutClick = () => {
         if (showCheckoutButton) {
@@ -89,11 +107,7 @@ const Index = () => {
     showCheckoutButton ? tele.MainButton.show() : tele.MainButton.hide();
 
     return (
-      <div className="container mt-5">
-            <div className="d-flex justify-content-between align-items-center mb-4">
-                <h3 className="titlecha">Products: </h3>
-                <button onClick={() => navigate("/add/product")} className='btn btn-outline-success'>Add Product</button>
-            </div>
+        <div className="container mt-5">
             {userId && <p>User ID: {userId}</p>}
             {loading ? (
                 <Loader />
