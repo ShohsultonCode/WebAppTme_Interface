@@ -39,3 +39,22 @@
 .btn {
   border-radius: 5px;
 }
+
+.count-element {
+  background-color: #f8f9fa;
+  border: 1px solid #dee2e6;
+  padding: 0.5rem 1rem;
+  border-radius: 10px;
+  margin: 0 15px;
+  font-weight: bold;
+  transition: background-color 0.2s, transform 0.2s;
+}
+
+.count-element:hover {
+  background-color: #e9ecef;
+  transform: scale(1.1);
+}
+
+.d-flex {
+  gap: 15px;
+}
