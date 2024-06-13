@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Loader from '../../components/Loader';
-
+import './Index.css';  // Import the new CSS file
 const Index = () => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
