@@ -90,10 +90,6 @@ const Index = () => {
 
     return (
       <div className="container mt-5">
-            <div className="d-flex justify-content-between align-items-center mb-4">
-                <h3 className="titlecha">Products: </h3>
-                <button onClick={() => navigate("/add/product")} className='btn btn-outline-success'>Add Product</button>
-            </div>
             {userId && <p>User ID: {userId}</p>}
             {loading ? (
                 <Loader />
