@@ -98,7 +98,7 @@ const Index = () => {
                     {products.map((product, index) => (
                         <div className="col-6 mb-4 rounded" key={index}>
                             <div className="card h-100 product-card">
-                                {product.product_image && (
+                            {product.product_image && (
                                     <img src={`https://shohsulton.uz/webappbot/api/images/${product.product_image}`} className="card-img-top img-fluid product-image" alt={product.product_name} />
                                 )}
                                 <div className="card-body">
