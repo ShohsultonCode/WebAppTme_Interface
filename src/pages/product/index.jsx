@@ -12,6 +12,8 @@ const Index = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
+    const telegram = window.Telegram.WebApp;
+
     const fetchSelectedProducts = async () => {
       try {
         const selectedProducts = JSON.parse(localStorage.getItem('selectedProducts')) || [];
