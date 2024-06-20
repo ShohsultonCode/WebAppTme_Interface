@@ -138,10 +138,10 @@ const Index = () => {
       <table className="table table-bordered">
         <thead>
           <tr>
-            <th>Name</th>
-            <th>Image</th>
-            <th>Count</th>
-            <th>Price</th>
+            <th>Nomi</th>
+            <th>Rasmi</th>
+            <th>Soni</th>
+            <th>Narxi</th>
           </tr>
         </thead>
         <tbody>
