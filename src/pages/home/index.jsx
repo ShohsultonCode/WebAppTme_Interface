@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Loader from '../../components/Loader';
-import './Index.css';  // Import the new CSS file
+import './Index.css';  // Импорт нового CSS-файла
 
 const Index = () => {
     const [products, setProducts] = useState([]);
@@ -30,7 +30,7 @@ const Index = () => {
                 setProducts(data.data);
                 setLoading(false);
             } catch (error) {
-                console.error('Error fetching products:', error);
+                console.error('Ошибка при получении продуктов:', error);
                 setLoading(false);
             }
         };
@@ -39,7 +39,7 @@ const Index = () => {
     }, []);
 
     useEffect(() => {
-        // Calculate total price whenever selected products change
+        // Рассчитать общую стоимость при изменении выбранных продуктов
         let total = 0;
         selectedProducts.forEach(item => {
             const product = products.find(prod => prod._id === item.productId);
@@ -91,7 +91,7 @@ const Index = () => {
 
     const showCheckoutButton = selectedProducts.some(item => item.count > 0);
     tele.MainButton.show();
-    tele.MainButton.text = `Buyurtmaga o'tish: ${totalPrice} so'm`;
+    tele.MainButton.text = `Перейти к заказу: ${totalPrice} сум`;
 
     const handleCheckoutClick = () => {
         if (showCheckoutButton) {
@@ -99,7 +99,7 @@ const Index = () => {
             tele.MainButton.hide();
             navigate('/products');
         } else {
-            toast.error('Please select at least one product to order.');
+            toast.error('Пожалуйста, выберите хотя бы один продукт для заказа.');
         }
     };
 
@@ -108,7 +108,7 @@ const Index = () => {
 
     return (
         <div className="container mt-5">
-            {userId && <p>User ID: {userId}</p>}
+            {userId && <p>Идентификатор пользователя: {userId}</p>}
             {loading ? (
                 <Loader />
             ) : (
@@ -121,8 +121,8 @@ const Index = () => {
                                 )}
                                 <div className="card-body">
                                     <h5 className="card-title">{product.product_name}</h5>
-                                    <h6 className="card-subtitle mb-2 text-muted">Turi: {product.product_category.category_name}</h6>
-                                    <p className="card-text">Narxi: {product.product_price.toFixed(2)} sum</p>
+                                    <h6 className="card-subtitle mb-2 text-muted">Категория: {product.product_category.category_name}</h6>
+                                    <p className="card-text">Цена: {product.product_price.toFixed(2)} сум</p>
                                     {productCounts[product._id] ? (
                                         <div>
                                             <button className="btn btn-danger me-2" onClick={() => handleDecrement(product._id)}>-</button>
@@ -131,7 +131,7 @@ const Index = () => {
                                         </div>
                                     ) : (
                                         <div className="d-flex justify-content-between">
-                                            <button className="btn btn-primary buttoncha" onClick={() => handleOrder(product._id)}>Buyurtma</button>
+                                            <button className="btn btn-primary buttoncha" onClick={() => handleOrder(product._id)}>Заказать</button>
                                         </div>
                                     )}
                                 </div>

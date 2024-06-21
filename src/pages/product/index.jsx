@@ -4,6 +4,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Loader from '../../components/Loader';
 import './Index.css';  // Import the new CSS file
+
 const Index = () => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -12,8 +13,8 @@ const Index = () => {
   const navigate = useNavigate();
 
   const telegram = window.Telegram.WebApp;
+  
   useEffect(() => {
-
     const fetchSelectedProducts = async () => {
       try {
         const selectedProducts = JSON.parse(localStorage.getItem('selectedProducts')) || [];
@@ -41,12 +42,12 @@ const Index = () => {
           setProductCounts(counts);
           setLoading(false);
         } else {
-          toast.error(data.message || 'Failed to fetch product details');
+          toast.error(data.message || 'Не удалось загрузить детали продукта');
           setLoading(false);
         }
       } catch (error) {
-        console.error('Error fetching product details:', error);
-        toast.error('Failed to fetch product details');
+        console.error('Ошибка загрузки деталей продукта:', error);
+        toast.error('Не удалось загрузить детали продукта');
         setLoading(false);
       }
     };
@@ -60,7 +61,6 @@ const Index = () => {
   }, []);
 
   const handlePay = async () => {
-
     try {
       const orderDataForPost = products.map((product) => ({
         order_telegram_id: telegramUserId,
@@ -83,7 +83,7 @@ const Index = () => {
       });
       const data = await response.json();
       if (response.ok) {
-        toast.success('Order placed successfully!');
+        toast.success('Заказ успешно размещен!');
         const secondApiResponse = {
           ok: true,
           order: orderDataForPost.reduce((acc, curr) => {
@@ -112,11 +112,11 @@ const Index = () => {
 
       } else {
 
-        toast.error(data.message || 'Failed to place order');
+        toast.error(data.message || 'Не удалось разместить заказ');
       }
     } catch (error) {
-      console.error('Error placing order:', error);
-      toast.error('Failed to place order');
+      console.error('Ошибка размещения заказа:', error);
+      toast.error('Не удалось разместить заказ');
     }
   };
 
@@ -132,16 +132,16 @@ const Index = () => {
   return (
     <div className="container mt-5">
       <div className="d-flex justify-content-between align-items-center">
-        <h3 className="mb-4">Product Details</h3>
-        <button type="button" className="btn btn-secondary" onClick={handleBack}>Back</button>
+        <h3 className="mb-4">Детали продукта</h3>
+        <button type="button" className="btn btn-secondary" onClick={handleBack}>Назад</button>
       </div>
       <table className="table table-bordered">
         <thead>
           <tr>
-            <th>Nomi</th>
-            <th>Rasmi</th>
-            <th>Soni</th>
-            <th>Narxi</th>
+            <th>Название</th>
+            <th>Изображение</th>
+            <th>Количество</th>
+            <th>Цена</th>
           </tr>
         </thead>
         <tbody>
@@ -157,12 +157,12 @@ const Index = () => {
                 />
               </td>
               <td>{productCounts[product._id] || 1}</td>
-              <td>{(product.product_price * (productCounts[product._id] || 1)).toFixed(2)} sum</td>
+              <td>{(product.product_price * (productCounts[product._id] || 1)).toFixed(2)} сум</td>
             </tr>
           ))}
         </tbody>
       </table>
-      <button className="btn btn-primary w-100 paycha" onClick={handlePay}>Buyurtma berish</button>
+      <button className="btn btn-primary w-100 paycha" onClick={handlePay}>Оформить заказ</button>
       <ToastContainer />
     </div>
   );
