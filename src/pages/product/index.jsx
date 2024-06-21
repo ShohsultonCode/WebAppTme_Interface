@@ -157,7 +157,7 @@ const Index = () => {
                 />
               </td>
               <td>{productCounts[product._id] || 1}</td>
-              <td>{product.product_price.toFixed(2)} sum</td>
+              <td>{(product.product_price * (productCounts[product._id] || 1)).toFixed(2)} sum</td>
             </tr>
           ))}
         </tbody>
