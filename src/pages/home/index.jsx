@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Loader from '../../components/Loader';
-import './Index.css';  // Импорт нового CSS-файла
+import './Index.css';  // Import the new CSS file
 
 const Index = () => {
     const [products, setProducts] = useState([]);
@@ -30,7 +30,7 @@ const Index = () => {
                 setProducts(data.data);
                 setLoading(false);
             } catch (error) {
-                console.error('Ошибка при получении продуктов:', error);
+                console.error('Mahsulotlarni olishda xatolik:', error);
                 setLoading(false);
             }
         };
@@ -39,7 +39,7 @@ const Index = () => {
     }, []);
 
     useEffect(() => {
-        // Рассчитать общую стоимость при изменении выбранных продуктов
+        // Tanlangan mahsulotlar o'zgartirilganda umumiy narxni hisoblash
         let total = 0;
         selectedProducts.forEach(item => {
             const product = products.find(prod => prod._id === item.productId);
@@ -91,7 +91,7 @@ const Index = () => {
 
     const showCheckoutButton = selectedProducts.some(item => item.count > 0);
     tele.MainButton.show();
-    tele.MainButton.text = `Перейти к заказу: ${totalPrice} сум`;
+    tele.MainButton.text = `Buyurtma berish: ${totalPrice} so'm`;
 
     const handleCheckoutClick = () => {
         if (showCheckoutButton) {
@@ -99,7 +99,7 @@ const Index = () => {
             tele.MainButton.hide();
             navigate('/products');
         } else {
-            toast.error('Пожалуйста, выберите хотя бы один продукт для заказа.');
+            toast.error('Iltimos, kamida bitta mahsulotni tanlang.');
         }
     };
 
@@ -108,7 +108,7 @@ const Index = () => {
 
     return (
         <div className="container mt-5">
-            {userId && <p>Идентификатор пользователя: {userId}</p>}
+            {userId && <p>Foydalanuvchi identifikatori: {userId}</p>}
             {loading ? (
                 <Loader />
             ) : (
@@ -121,8 +121,8 @@ const Index = () => {
                                 )}
                                 <div className="card-body">
                                     <h5 className="card-title">{product.product_name}</h5>
-                                    <h6 className="card-subtitle mb-2 text-muted">Категория: {product.product_category.category_name}</h6>
-                                    <p className="card-text">Цена: {product.product_price.toFixed(2)} сум</p>
+                                    <h6 className="card-subtitle mb-2 text-muted">Tur: {product.product_category.category_name}</h6>
+                                    <p className="card-text">Narx: {product.product_price.toFixed(2)} so'm</p>
                                     {productCounts[product._id] ? (
                                         <div>
                                             <button className="btn btn-danger me-2" onClick={() => handleDecrement(product._id)}>-</button>
@@ -131,7 +131,7 @@ const Index = () => {
                                         </div>
                                     ) : (
                                         <div className="d-flex justify-content-between">
-                                            <button className="btn btn-primary buttoncha" onClick={() => handleOrder(product._id)}>Заказать</button>
+                                            <button className="btn btn-primary buttoncha" onClick={() => handleOrder(product._id)}>Buyurtma</button>
                                         </div>
                                     )}
                                 </div>
